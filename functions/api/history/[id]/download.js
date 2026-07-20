@@ -1,0 +1,9 @@
+import { json, currentUser, requireUser } from "../../../_shared.js";
+
+export async function onRequestGet({ request, env, params }) {
+  const user = await currentUser(request, env), error = requireUser(user);
+  if (error) return error;
+  const row = await env.DB.prepare("SELECT resume_text FROM resume_history WHERE id = ? AND user_id = ?").bind(params.id, user.id).first();
+  if (!row) return json({ error: "历史记录不存在" }, 404);
+  return new Response(row.resume_text, { headers: { "content-type": "text/plain; charset=utf-8", "content-disposition": `attachment; filename="resume-${params.id}.txt"` } });
+}
