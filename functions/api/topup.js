@@ -1,0 +1,2 @@
+import { json, readJson, currentUser, publicUser, requireUser } from "../_shared.js";
+export async function onRequestPost({ request, env }) { const user = await currentUser(request, env), error = requireUser(user); if (error) return error; const data = await readJson(request), amount = Math.max(0, Math.min(Number(data.credits || 0), 100000)); await env.DB.prepare("UPDATE users SET credits = credits + ? WHERE id = ?").bind(amount, user.id).run(); user.credits += amount; return json({ user: publicUser(user) }); }

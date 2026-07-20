@@ -1,0 +1,12 @@
+name = "resume-expert11"
+compatibility_date = "2026-07-20"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "resume-expert-db"
+database_id = "REPLACE_WITH_CLOUDFLARE_D1_DATABASE_ID"
+
+[vars]
+AI_MODE = "deepseek"
+DEEPSEEK_MODEL = "deepseek-chat"
+PRICE_MARKUP = "1.4"

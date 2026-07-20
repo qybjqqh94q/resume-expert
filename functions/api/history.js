@@ -1,0 +1,2 @@
+import { json, currentUser, publicUser, requireUser } from "../_shared.js";
+export async function onRequestGet({ request, env }) { const user = await currentUser(request, env), error = requireUser(user); if (error) return error; const { results } = await env.DB.prepare("SELECT id,title,target_position,match_score,resume_text,created_at FROM resume_history WHERE user_id = ? ORDER BY id DESC").bind(user.id).all(); return json({ items: results }); }
