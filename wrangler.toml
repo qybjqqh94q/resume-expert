@@ -4,7 +4,7 @@ compatibility_date = "2026-07-20"
 [[d1_databases]]
 binding = "DB"
 database_name = "resume-expert-db"
-database_id = "REPLACE_WITH_CLOUDFLARE_D1_DATABASE_ID"
+database_id = "60006f59-fcd1-46af-bcb6-deb083c69804"
 
 [vars]
 AI_MODE = "deepseek"
