@@ -24,7 +24,8 @@ function b64Text(value) { return new TextDecoder().decode(unb64(value)); }
 
 export async function hashPassword(password, salt = crypto.randomUUID()) {
   const key = await crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveBits"]);
-  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: enc.encode(salt), iterations: 120000, hash: "SHA-256" }, key, 256);
+  // Cloudflare Workers limits PBKDF2 iterations to 100000.
+  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: enc.encode(salt), iterations: 100000, hash: "SHA-256" }, key, 256);
   return { salt, hash: b64(new Uint8Array(bits)) };
 }
 
